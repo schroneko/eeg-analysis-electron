@@ -6,6 +6,7 @@ numpy==1.26.4
 pandas==1.5.3
 scipy==1.13.1
 python-docx==1.2.0
+# Keep Pillow at 13.0.0 or newer for the three TIFF security fixes.
 Pillow==13.0.0
 lxml==6.1.0
 fonttools==4.60.2
