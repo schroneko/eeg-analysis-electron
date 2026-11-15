@@ -10,7 +10,12 @@ from docx.shared import Inches
 from scipy import signal
 from scipy.integrate import simps
 
-from topograph import get_psds_alpha, get_psds_beta, get_psds_theta, plot_topomap
+from topograph import (
+    get_psds_alpha,
+    get_psds_beta,
+    get_psds_theta,
+    plot_topomap,
+)
 
 matplotlib.use("Agg")
 
@@ -263,12 +268,12 @@ def calc_zscore(input_data, input_name):
 
             # rel_alpha_diffの標準偏差を求める
             rel_alpha_diff = np.log(rel_alpha_fp2) - np.log(rel_alpha_fp1)
-            sample_spectrum_diff = np.log(np.load(np_load_dataset[1][0])) - np.log(
-                np.load(np_load_dataset[0][0])
-            )
-            z_alpha = (rel_alpha_diff - np.mean(sample_spectrum_diff)) / np.std(
-                sample_spectrum_diff
-            )
+            sample_spectrum_diff = np.log(
+                np.load(np_load_dataset[1][0])
+            ) - np.log(np.load(np_load_dataset[0][0]))
+            z_alpha = (
+                rel_alpha_diff - np.mean(sample_spectrum_diff)
+            ) / np.std(sample_spectrum_diff)
 
             # Calculate the difference between the alpha power Fp1 with Fp2
             calc_result = calc_alpha_diff(alpha_fp1, alpha_fp2)
@@ -331,22 +336,34 @@ def calc_zscore(input_data, input_name):
         document.paragraphs[13 + k].add_run(result_list[k])
 
     document.add_paragraph(
-        "前頭葉のアルファ波左右差の値は" + str("{:.3g}".format(calc_result)) + "です。"
+        "前頭葉のアルファ波左右差の値は"
+        + str("{:.3g}".format(calc_result))
+        + "です。"
     )
     document.add_paragraph(
-        "前頭葉のアルファ波左右差の相対パワースペクトルのZ値は" + str("{:.3g}".format(z_alpha)) + "です。"
+        "前頭葉のアルファ波左右差の相対パワースペクトルのZ値は"
+        + str("{:.3g}".format(z_alpha))
+        + "です。"
     )
     document.add_paragraph(
-        "前頭葉（右）のシータ波/ベータ波の比率は" + str("{:.3g}".format(theta_beta_fp1)) + "です。"
+        "前頭葉（右）のシータ波/ベータ波の比率は"
+        + str("{:.3g}".format(theta_beta_fp1))
+        + "です。"
     )
     document.add_paragraph(
-        "前頭葉（左）のシータ波/ベータ波の比率は" + str("{:.3g}".format(theta_beta_fp2)) + "です。"
+        "前頭葉（左）のシータ波/ベータ波の比率は"
+        + str("{:.3g}".format(theta_beta_fp2))
+        + "です。"
     )
     document.add_paragraph(
-        "前頭葉（右）のシータ波/ベータ波のZ値は" + str("{:.3g}".format(z_theta_beta_fp1)) + "です。"
+        "前頭葉（右）のシータ波/ベータ波のZ値は"
+        + str("{:.3g}".format(z_theta_beta_fp1))
+        + "です。"
     )
     document.add_paragraph(
-        "前頭葉（左）のシータ波/ベータ波のZ値は" + str("{:.3g}".format(z_theta_beta_fp2)) + "です。"
+        "前頭葉（左）のシータ波/ベータ波のZ値は"
+        + str("{:.3g}".format(z_theta_beta_fp2))
+        + "です。"
     )
 
     save_dir = input_data.replace(".txt", ".docx")
